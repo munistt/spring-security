@@ -1,6 +1,9 @@
 package com.ust.spring.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 		// TODO Auto-generated method stub
 		MyUser user = userService.readById(Long.valueOf(username));
 		if(user != null) {
-			return user;
+			return new User(String.valueOf(user.getId()), user.getPassword(), new ArrayList<>());
 		}
 		else{
 			throw new UsernameNotFoundException("not found "+username);
